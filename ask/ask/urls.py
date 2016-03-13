@@ -17,5 +17,5 @@ urlpatterns = patterns('',
     url(r'^question/(?P<question_id>[0-9]+)/$', test, name='question_detail'),
     #url(r'^signup/$', 'ask.views.home', name='signup'),
     #url(r'^login/$', 'ask.views.home', name='login'),
-    #url(r'^$', 'ask.views.home', name='index'),
+    url(r'^$', test, name='index'),
 )
