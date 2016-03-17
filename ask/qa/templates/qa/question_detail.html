@@ -2,24 +2,11 @@
 
 {% block content %}
 
-    {% for question in questions %}
-        {{ question.title }} - <a href="{% url 'question_detail' question.pk %}">Перейти к вопросу {{ question.pk }}</a><br />
+    {{ question.title }}<br>
+    {{ question.text }}<br>
+    Answers:<br>
+    {% for answer in question.answer_set.all %}
+        {{ answer.text }}<br>
     {% endfor %}
-
-    <div class="pagination">
-        <span class="step-links">
-            {% if questions.has_previous %}
-                <a href="?page={{ questions.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
-            </span>
-
-            {% if questions.has_next %}
-                <a href="?page={{ questions.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
 
 {% endblock content%}
