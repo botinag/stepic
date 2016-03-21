@@ -7,12 +7,14 @@ class Question(models.Model):
     text = models.TextField()
     added_at = models.DateField(auto_now_add=True)
     rating = models.IntegerField(default=0)
-    author = models.ForeignKey(User, related_name='author_set')
-    likes = models.ManyToManyField(User, related_name='likes_set')
+    author = models.ForeignKey(User, null=True, blank=True,
+                               related_name='author_set')
+    likes = models.ManyToManyField(User, null=True, blank=True,
+                                   related_name='likes_set')
 
 
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateField(auto_now_add=True)
     question = models.ForeignKey(Question)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, null=True, blank=True)
