@@ -41,7 +41,23 @@ class AnswerForm(forms.ModelForm):
         widgets = {'question': forms.HiddenInput()}
 
 
-class MyUserCreationForm(UserCreationForm):
+#class MyUserCreationForm(UserCreationForm):
+#    class Meta:
+#        model = User
+#        fields = ('username', 'email')
+
+
+class MyUserCreationForm(forms.ModelForm):
+
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+    def save(self, commit=True):
+        user = super(MyUserCreationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
     class Meta:
         model = User
         fields = ('username', 'email')

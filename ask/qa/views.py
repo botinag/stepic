@@ -74,7 +74,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             user = authenticate(username=form.cleaned_data['username'],
-                                password=form.cleaned_data['password1'])
+                                password=form.cleaned_data['password'])
             login(request, user)
             return redirect('index')
     else:
