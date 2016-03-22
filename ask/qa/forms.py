@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from qa.models import Question, Answer
 
 
@@ -37,3 +39,9 @@ class AnswerForm(forms.ModelForm):
         model = Answer
         fields = ('text', 'question')
         widgets = {'question': forms.HiddenInput()}
+
+
+class MyUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email')

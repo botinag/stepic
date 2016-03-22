@@ -1,8 +1,10 @@
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth import authenticate, login
+#from django.contrib.auth.forms import UserCreationForm
 from qa.models import Question
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, MyUserCreationForm
 
 
 def test(request, *args, **kwargs):
@@ -64,3 +66,17 @@ def answer(request):
     #else:
     #    form = AskForm(user=request.user)
     #return render(request, 'qa/ask.html', {'form': form})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = MyUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password1'])
+            login(request, user)
+            return redirect('index')
+    else:
+        form = MyUserCreationForm()
+    return render(request, 'qa/signup.html', {'form': form})
